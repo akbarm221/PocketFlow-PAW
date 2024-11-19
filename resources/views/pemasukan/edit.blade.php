@@ -28,6 +28,10 @@
         <label for="tanggal" class="form-label">Tanggal</label>
         <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $pemasukan->tanggal }}" required>
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
+
+    <div class="text-end">
+        <a href="{{ route('pemasukan.index') }}" class="btn btn-secondary me-2">Cancel</a>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
 </form>
 @endsection

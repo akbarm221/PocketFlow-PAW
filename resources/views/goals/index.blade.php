@@ -67,6 +67,7 @@
                     <input type="text" name="goal" class="form-control" placeholder="Enter your goal" required>
                 </div>
                 <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Add Goal</button>
                 </div>
             </form>
@@ -89,6 +90,7 @@
                     <input type="text" id="editGoal" name="goal" class="form-control" required>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-success">Update</button>
                 </div>
             </form>

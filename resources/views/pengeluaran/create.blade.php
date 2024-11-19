@@ -39,7 +39,11 @@
         <label for="tanggal" class="form-label">Tanggal</label>
         <input type="date" class="form-control" id="tanggal" name="tanggal" required>
     </div>
-    <button type="submit" class="btn btn-primary">Simpan</button>
+   <!-- Tombol Cancel dan Simpan -->
+   <div class="text-end">
+        <a href="{{ route('pemasukan.index') }}" class="btn btn-secondary me-2">Cancel</a>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
 </form>
 
 <!-- Modal untuk tambah kategori -->
