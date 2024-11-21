@@ -47,17 +47,20 @@ class DashboardController extends Controller
         }
         $totalPengeluaran = $pengeluaranQuery->sum('jumlah');
 
-        // Ambil top 5 pengeluaran berdasarkan kategori
-        $topPengeluaran = Pengeluaran::where('pengeluaran.user_id', $userId)
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('pengeluaran.tanggal', [$startDate, $endDate]);
-            })
-            ->join('kategori', 'pengeluaran.kategori_id', '=', 'kategori.id')
-            ->select('kategori.nama', DB::raw('SUM(pengeluaran.jumlah) as total'))
-            ->groupBy('kategori.id', 'kategori.nama')
-            ->orderByDesc('total')
-            ->limit(5)
-            ->get();
+    
+    // Ambil top 5 pengeluaran berdasarkan kategori untuk user yang sedang login
+    $topPengeluaran = Pengeluaran::where('pengeluaran.user_id', $userId)  // Filter berdasarkan user_id dengan alias tabel
+        ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            // Filter berdasarkan rentang tanggal jika ada
+            return $query->whereBetween('pengeluaran.tanggal', [$startDate, $endDate]);
+        })
+        ->join('kategori_pengeluaran', 'pengeluaran.kategori_pengeluaran_id', '=', 'kategori_pengeluaran.id')  // Join dengan tabel kategori_pengeluaran
+        ->select('kategori_pengeluaran.nama', DB::raw('SUM(pengeluaran.jumlah) as total'))  // Ambil nama kategori dan total pengeluaran
+        ->groupBy('kategori_pengeluaran.id', 'kategori_pengeluaran.nama')  // Kelompokkan berdasarkan kategori
+        ->orderByDesc('total')  // Urutkan berdasarkan total pengeluaran tertinggi
+        ->limit(5)  // Batasi hasil hanya 5
+        ->get();
+
 
         // Pastikan data tidak null
         $totalPemasukan = $totalPemasukan ?: 0;

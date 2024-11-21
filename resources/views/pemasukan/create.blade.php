@@ -18,7 +18,7 @@
 
     <div class="mb-3">
         <label for="kategori" class="form-label">Kategori</label>
-        <select class="form-select" id="kategori" name="kategori_id" required>
+        <select class="form-select" id="kategori" name="kategori_pemasukan_id" required>
             <option value="" selected disabled>Pilih Kategori</option>
             @foreach($kategori as $item)
                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -55,7 +55,7 @@
                 <h5 class="modal-title" id="modalTambahKategoriLabel">Tambah Kategori Baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('kategori.store') }}" method="POST">
+            <form action="{{ route('kategori-pemasukan.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">

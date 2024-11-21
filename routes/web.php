@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KategoriPemasukanController;
+use App\Http\Controllers\KategoriPengeluaranController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use Illuminate\Support\Facades\Route;
@@ -43,10 +45,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pemasukan', PemasukanController::class);
     Route::resource('pengeluaran', PengeluaranController::class);
-    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+   
     Route::resource('goals', GoalController::class)->except(['show']);
     Route::put('/goals/{id}/toggle', [GoalController::class, 'toggleCompletion'])->name('goals.toggle');
     
+    Route::post('/kategori-pemasukan', [KategoriPemasukanController::class, 'store'])->name('kategori-pemasukan.store');
+    Route::post('/kategori-pengeluaran', [KategoriPengeluaranController::class, 'store'])->name('kategori-pengeluaran.store');
+
     Route::get('/pemasukan', [pemasukanController::class, 'index'])->name('pemasukan.index');
     Route::get('/pemasukan/create', [pemasukanController::class, 'create'])->name('pemasukan.create');
     Route::post('/pemasukan', [pemasukanController::class, 'store'])->name('pemasukan.store');

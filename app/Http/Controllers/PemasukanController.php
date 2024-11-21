@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+
+use App\Models\KategoriPemasukan;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Pemasukan;
@@ -50,13 +51,13 @@ class PemasukanController extends Controller
      *
      * @return \Illuminate\View\View
      */
+      /**
+     * Menampilkan halaman pembuatan pemasukan dengan kategori pemasukan milik user yang login.
+     */
     public function create()
     {
-        // Ambil semua kategori dari database
-// Ambil kategori milik user yang login
-    $kategori = Kategori::where('user_id', Auth::id())->get();
-
-       
+        // Ambil kategori pemasukan milik user yang login
+        $kategori = KategoriPemasukan::where('user_id', Auth::id())->get();
 
         // Kirim data kategori ke view
         return view('pemasukan.create', compact('kategori'));
@@ -64,24 +65,21 @@ class PemasukanController extends Controller
 
     /**
      * Menyimpan pemasukan baru ke dalam database
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
             'jumlah' => 'required|numeric',
-            'kategori_id' => 'required|exists:kategori,id', // Validasi kategori_id yang harus ada dalam tabel kategori
+            'kategori_pemasukan_id' => 'required|exists:kategori_pemasukan,id', 
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
         ]);
 
-        // Simpan data pemasukan dengan kategori_id dan user_id
+        // Simpan data pemasukan dengan kategori_pemasukan_id dan user_id
         Pemasukan::create([
             'user_id' => auth()->id(), // Menyimpan ID user yang sedang login
             'jumlah' => $request->jumlah,
-            'kategori_id' => $request->kategori_id,
+            'kategori_pemasukan_id' => $request->kategori_pemasukan_id,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
         ]);
@@ -91,34 +89,27 @@ class PemasukanController extends Controller
 
     /**
      * Menampilkan form untuk mengedit pemasukan yang sudah ada
-     *
-     * @param int $id
-     * @return \Illuminate\View\View
      */
     public function edit($id)
-{
-    // Ambil pemasukan berdasarkan ID dan pastikan milik user yang login
-    $pemasukan = Pemasukan::where('user_id', auth()->id())->findOrFail($id);
+    {
+        // Ambil pemasukan berdasarkan ID dan pastikan milik user yang login
+        $pemasukan = Pemasukan::where('user_id', auth()->id())->findOrFail($id);
 
-    // Ambil kategori milik user yang login
-    $kategori = Kategori::where('user_id', auth()->id())->get();
+        // Ambil kategori pemasukan milik user yang login
+        $kategori = KategoriPemasukan::where('user_id', auth()->id())->get();
 
-    // Kirim data pemasukan dan kategori ke view
-    return view('pemasukan.edit', compact('pemasukan', 'kategori'));
-}
+        // Kirim data pemasukan dan kategori ke view
+        return view('pemasukan.edit', compact('pemasukan', 'kategori'));
+    }
 
     /**
      * Memperbarui pemasukan yang sudah ada
-     *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
         $request->validate([
             'jumlah' => 'required|numeric',
-            'kategori_id' => 'required|exists:kategori,id',
+            'kategori_pemasukan_id' => 'required|exists:kategori_pemasukan,id', // Validasi kategori_pemasukan_id
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
         ]);
@@ -127,11 +118,15 @@ class PemasukanController extends Controller
         $pemasukan = Pemasukan::where('user_id', auth()->id())->findOrFail($id);
 
         // Update data pemasukan
-        $pemasukan->update($request->all());
+        $pemasukan->update([
+            'jumlah' => $request->jumlah,
+            'kategori_pemasukan_id' => $request->kategori_pemasukan_id,
+            'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+        ]);
 
         return redirect()->route('pemasukan.index')->with('success', 'Data pemasukan berhasil diperbarui!');
     }
-
     /**
      * Menghapus pemasukan yang ada
      *

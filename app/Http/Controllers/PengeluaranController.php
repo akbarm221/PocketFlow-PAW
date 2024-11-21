@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriPengeluaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengeluaran;
@@ -28,31 +29,35 @@ class PengeluaranController extends Controller
         return view('pengeluaran.index', compact('pengeluaran', 'filter'));
     }
 
-    /**
-     * Menampilkan form untuk menambah pengeluaran baru.
+     /**
+     * Menampilkan form untuk membuat pengeluaran baru.
      */
     public function create()
     {
-        $kategori = Kategori::where('user_id', Auth::id())->get(); // Hanya kategori milik user
+        // Ambil kategori pengeluaran milik user yang login
+        $kategori = KategoriPengeluaran::where('user_id', Auth::id())->get();
+
+        // Kirim data kategori ke view
         return view('pengeluaran.create', compact('kategori'));
     }
 
     /**
-     * Menyimpan data pengeluaran baru ke database.
+     * Menyimpan pengeluaran baru ke dalam database.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'kategori_id' => 'nullable|exists:kategori,id',
             'jumlah' => 'required|numeric',
+            'kategori_pengeluaran_id' => 'required|exists:kategori_pengeluaran,id', // Validasi kategori_pengeluaran_id
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
         ]);
 
+        // Simpan data pengeluaran dengan kategori_pengeluaran_id dan user_id
         Pengeluaran::create([
-            'user_id' => Auth::id(), // Set user_id sesuai user yang login
-            'kategori_id' => $request->kategori_id,
+            'user_id' => auth()->id(), // Menyimpan ID user yang sedang login
             'jumlah' => $request->jumlah,
+            'kategori_pengeluaran_id' => $request->kategori_pengeluaran_id,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
         ]);
@@ -61,35 +66,39 @@ class PengeluaranController extends Controller
     }
 
     /**
-     * Menampilkan form untuk mengedit data pengeluaran.
+     * Menampilkan form untuk mengedit pengeluaran yang sudah ada.
      */
     public function edit($id)
     {
-        // Ambil pemasukan berdasarkan ID dan pastikan milik user yang login
+        // Ambil pengeluaran berdasarkan ID dan pastikan milik user yang login
         $pengeluaran = Pengeluaran::where('user_id', auth()->id())->findOrFail($id);
-    
-        // Ambil kategori milik user yang login
-        $kategori = Kategori::where('user_id', auth()->id())->get();
-    
-        // Kirim data pemasukan dan kategori ke view
+
+        // Ambil kategori pengeluaran milik user yang login
+        $kategori = KategoriPengeluaran::where('user_id', auth()->id())->get();
+
+        // Kirim data pengeluaran dan kategori ke view
         return view('pengeluaran.edit', compact('pengeluaran', 'kategori'));
     }
+
     /**
-     * Memperbarui data pengeluaran yang ada di database.
+     * Memperbarui pengeluaran yang sudah ada.
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kategori_id' => 'nullable|exists:kategori,id',
             'jumlah' => 'required|numeric',
+            'kategori_pengeluaran_id' => 'required|exists:kategori_pengeluaran,id', // Validasi kategori_pengeluaran_id
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
         ]);
 
-        $pengeluaran = Pengeluaran::where('user_id', Auth::id())->findOrFail($id); // Cek kepemilikan
+        // Cari pengeluaran berdasarkan ID dan pastikan hanya pemilik yang bisa update
+        $pengeluaran = Pengeluaran::where('user_id', auth()->id())->findOrFail($id);
+
+        // Update data pengeluaran
         $pengeluaran->update([
-            'kategori_id' => $request->kategori_id,
             'jumlah' => $request->jumlah,
+            'kategori_pengeluaran_id' => $request->kategori_pengeluaran_id,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
         ]);

@@ -11,10 +11,10 @@
     </div>
     <div class="mb-3">
         <label for="kategori_id" class="form-label">Kategori</label>
-        <select class="form-control" id="kategori_id" name="kategori_id" required>
+        <select class="form-control" id="kategori_id" name="kategori_pemasukan_id" required>
             <option value="" disabled>Pilih Kategori</option>
             @foreach($kategori as $kat)
-                <option value="{{ $kat->id }}" {{ $pemasukan->kategori_id == $kat->id ? 'selected' : '' }}>
+                <option value="{{ $kat->id }}" {{ $pemasukan->kategori_pemasukan_id == $kat->id ? 'selected' : '' }}>
                     {{ $kat->nama }}
                 </option>
             @endforeach
