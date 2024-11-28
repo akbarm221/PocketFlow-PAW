@@ -33,27 +33,27 @@
                         @forelse ($goals as $goal)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $goal->goals }}</td> <!-- Data goals berada di tengah -->
+                                <td class="text-center">{{ $goal->goals }}</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="form-check-input" {{ $goal->is_completed ? 'checked' : '' }}
                                       onchange="toggleGoal({{ $goal->id }}, this.checked)">
                                 </td>
                                 <td class="text-center">
-                                    <button class="btn btn-outline-dark btn-sm goals-btn" data-bs-toggle="modal"
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editGoalModal" data-id="{{ $goal->id }}" data-goal="{{ $goal->goals }}">
                                         Update
                                     </button>
                                     <form action="{{ route('goals.destroy', $goal->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-dark btn-sm goals-btn"
+                                        <button type="submit" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Delete this goal?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No goals available.</td>
+                                <td colspan="4" class="text-center">Tidak ada Goals</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -80,8 +80,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </form>
         </div>

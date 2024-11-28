@@ -31,8 +31,8 @@
     </div>
 
     <div class="text-end">
-        <a href="{{ route('pemasukan.index') }}" class="btn btn-secondary me-2">Cancel</a>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ route('pemasukan.index') }}" class="btn btn-danger me-2">Cancel</a>
+        <button type="submit" class="btn btn-success">Update</button>
     </div>
 </form>
 @endsection

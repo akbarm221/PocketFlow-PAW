@@ -21,7 +21,7 @@ class PemasukanController extends Controller
     {
         // Mengambil filter dari input request, default 'all'
         $filter = $request->input('filter', 'all');
-        
+
         // Query pemasukan, hanya untuk user yang login
         $query = Pemasukan::where('user_id', auth()->id());
 
@@ -39,8 +39,8 @@ class PemasukanController extends Controller
             // Hanya pastikan data yang diambil adalah milik pengguna yang login
         }
 
-        // Ambil data pemasukan sesuai dengan filter
-        $pemasukan = $query->get();
+
+        $pemasukan = $query->orderBy('tanggal', 'desc')->get();
 
         // Mengembalikan tampilan dengan data pemasukan dan filter yang diterapkan
         return view('pemasukan.index', compact('pemasukan', 'filter'));
@@ -51,7 +51,7 @@ class PemasukanController extends Controller
      *
      * @return \Illuminate\View\View
      */
-      /**
+    /**
      * Menampilkan halaman pembuatan pemasukan dengan kategori pemasukan milik user yang login.
      */
     public function create()
@@ -70,7 +70,7 @@ class PemasukanController extends Controller
     {
         $request->validate([
             'jumlah' => 'required|numeric',
-            'kategori_pemasukan_id' => 'required|exists:kategori_pemasukan,id', 
+            'kategori_pemasukan_id' => 'required|exists:kategori_pemasukan,id',
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
         ]);

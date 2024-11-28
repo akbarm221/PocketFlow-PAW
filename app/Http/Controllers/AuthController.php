@@ -62,10 +62,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Login otomatis setelah registrasi
-        Auth::login($user);
+      
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 
     // Logout

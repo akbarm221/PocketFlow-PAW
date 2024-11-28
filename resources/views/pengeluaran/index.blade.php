@@ -12,7 +12,7 @@
     <div class="mb-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link {{ $filter == 'all' ? 'active' : '' }}" href="{{ route('pengeluaran.index', ['filter' => 'all']) }}">All</a>
+                <a class="nav-link {{ $filter == 'all' ? 'active' : '' }}" href="{{ route('pengeluaran.index', ['filter' => 'all']) }}">Semua</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ $filter == 'week' ? 'active' : '' }}" href="{{ route('pengeluaran.index', ['filter' => 'week']) }}">Minggu ini</a>
@@ -31,6 +31,7 @@
                 <!-- Left Side: Data -->
                 <div>
                     <div class="fw-bold">#{{ $index + 1 }}. RP. {{ number_format($item->jumlah, 2) }}</div>
+                    <div class="text-muted">{{ $item->tanggal }}</div>
                     <div class="text-muted">{{ $item->deskripsi }}</div>
                     <small class="text-muted">Kategori: {{ $item->kategori->nama }}</small>
                 </div>

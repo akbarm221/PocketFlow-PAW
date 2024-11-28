@@ -148,6 +148,23 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Menunggu DOM selesai dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            // Menambahkan event listener ke elemen <small> yang berisi "View profile"
+            const viewProfileLink = document.querySelector('.sidebar-profile small');
+
+            if (viewProfileLink) {
+                viewProfileLink.addEventListener('click', function (e) {
+                    // Mencegah aksi default, jika ada
+                    e.preventDefault();
+
+                    // Arahkan ke halaman profil
+                    window.location.href = "{{ route('profile.index') }}";  // Ubah sesuai dengan rute profil yang benar
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

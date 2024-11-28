@@ -53,9 +53,26 @@
     color: #fff;
 }
 
-/* Ikon Pensil */
+
 .goals-add-btn svg {
     width: 16px;
     height: 16px;
     fill: currentColor;
+}
+
+
+.form-check-input {
+    border-width: 3px; 
+    border-color: #adb5bd; 
+    border-radius: 4px; 
+    outline: none; 
+}
+
+.form-check-input:checked {
+    background-color: #20c997; 
+    border-color: #20c997; 
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(32, 201, 151, 0.25); 
 }

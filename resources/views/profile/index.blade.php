@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- Tombol Submit -->
-                <button type="submit" class="btn btn-primary profile-submit">Update Profile</button>
+                <button type="submit" class="btn profile-submit">Update Profile</button>
             </form>
 
         </div>

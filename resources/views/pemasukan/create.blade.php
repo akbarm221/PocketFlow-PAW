@@ -42,8 +42,8 @@
    
     <!-- Tombol Cancel dan Simpan -->
     <div class="text-end">
-        <a href="{{ route('pemasukan.index') }}" class="btn btn-secondary me-2">Cancel</a>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{{ route('pemasukan.index') }}" class="btn btn-danger me-2">Cancel</a>
+        <button type="submit" class="btn btn-success">Simpan</button>
     </div>
 </form>
 
@@ -64,8 +64,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </form>
         </div>

@@ -80,7 +80,7 @@
                                 <hr class="custom-divider">
                                 <h5 class="fw-bold">{{ $goal->goals }}</h5>
                             @else
-                                <p class="text-muted">No goals available.</p>
+                                <p class="text-muted">Tidak ada goals</p>
                             @endif
                         </div>
                         <!-- Tombol Details -->
@@ -100,12 +100,12 @@
     <!-- Tabel Top 5 Pengeluaran -->
     <div class="container mt-5">
         <div class="pengeluaran-card">
-            <h4 class="pengeluaran-title">Top 5 Pengeluaran</h4>
+            <h4 class="pengeluaran-title">Top 5 Pengeluaran Berdasarkan Kategori</h4>
             <div class="table-responsive">
                 <table class="pengeluaran-table">
                     <thead>
                         <tr>
-                            <th class="text-center align-middle">#</th>
+                            <th class="text-center align-middle">no</th>
                             <th class="text-center align-middle">Kategori</th>
                             <th class="text-end align-middle">Total Pengeluaran</th>
                         </tr>

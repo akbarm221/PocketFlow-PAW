@@ -16,6 +16,7 @@
 .profile-buttons .profile-tab {
     font-size: 14px;
     padding: 8px 15px;
+    font-weight: bold;
     border: 1px solid #20c997; /* Warna hijau */
     color: #20c997;
     background-color: white;
@@ -89,7 +90,10 @@
 
 .profile-submit {
     font-size: 14px;
+    font-weight: bold;
     padding: 10px 20px;
+    background-color: #299D91;  
+    color: white;
 }
 
 .profile-container {
@@ -107,6 +111,9 @@
 
 .profile-submit-pw {
     font-size: 14px;
+    font-weight: bold;
     padding: 10px 20px;
+    background-color: #299D91;  
+    color: white;
     margin-top: 30px;
 }

@@ -24,7 +24,7 @@ class PengeluaranController extends Controller
             $query->whereMonth('tanggal', now()->month);
         }
 
-        $pengeluaran = $query->with('kategori')->latest()->get(); // Ambil data dengan relasi kategori
+        $pengeluaran = $query->orderBy('tanggal', 'desc')->get();
 
         return view('pengeluaran.index', compact('pengeluaran', 'filter'));
     }

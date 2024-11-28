@@ -132,3 +132,13 @@
     height: 20px;
     fill: currentColor;
 }
+
+.sidebar-profile small {
+        cursor: pointer;  
+        color: #ffffff;   
+        transition: color 0.3s ease;  
+    }
+
+    .sidebar-profile small:hover {
+        color: #47ACBC;    
+    }
