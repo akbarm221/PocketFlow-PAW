@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="fw-bold">Data Pemasukan</h4>
-        <a href="{{ route('pemasukan.create') }}" class="btn btn-success">+ Add Transaction</a>
+        <a href="{{ route('pemasukan.create') }}" class="btn btn-success">+ Tambahkan Pemasukan</a>
     </div>
 
     <!-- Filter -->
@@ -51,10 +51,6 @@
             </div>
             @endforelse
 
-            <!-- Load More -->
-            <div class="text-center mt-3">
-                <button class="btn btn-outline-success">Load More</button>
-            </div>
         </div>
     </div>
 </div>

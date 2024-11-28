@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('profile_picture')->nullable(); // Tambahkan kolom untuk foto profil
             $table->timestamps();
         });
     }

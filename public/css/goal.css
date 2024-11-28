@@ -1,0 +1,61 @@
+/* Goals Container */
+.goals-container {
+    max-width: 90%; /* Lebar hampir penuh */
+    margin: 0 auto;
+}
+
+/* Styling untuk tabel */
+.goals-card {
+    border-radius: 0; /* Tidak ada rounding */
+    background-color: #fff;
+}
+
+.goals-table {
+    width: 100%; /* Lebar tabel sesuai container */
+    margin: 0;
+    border-collapse: collapse; /* Hapus spasi antar kolom */
+}
+
+.goals-table th {
+    text-align: center;
+    font-weight: bold;
+    color: #20c997;
+    border-bottom: 2px solid #000;
+    background-color: #ffffff;
+}
+
+.goals-table td {
+    text-align: left;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.goals-table td:nth-child(3),
+.goals-table td:nth-child(4) {
+    text-align: center; /* Ratakan kolom Complete dan Action ke tengah */
+}
+
+/* Tombol Add Goals */
+.goals-add-btn {
+    font-size: 14px;
+    color: #20c997;
+    border: 2px solid #20c997;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+}
+
+.goals-add-btn:hover {
+    background-color: #20c997;
+    color: #fff;
+}
+
+/* Ikon Pensil */
+.goals-add-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}

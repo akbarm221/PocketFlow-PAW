@@ -4,8 +4,10 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriPemasukanController;
 use App\Http\Controllers\KategoriPengeluaranController;
+use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
@@ -23,7 +25,7 @@ use App\Http\Controllers\AuthController;
 
 // Route untuk halaman login
 Route::get('/', function () {
-    return view('auth.login');
+    return view('landingpage.landingPage');
 });
 
 // Halaman login dan registrasi
@@ -42,15 +44,28 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Group untuk halaman-halaman yang membutuhkan autentikasi
 Route::middleware(['auth'])->group(function () {
+    Route::get('/layout', [LayoutController::class, 'showLayout'])->name('layout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pemasukan', PemasukanController::class);
     Route::resource('pengeluaran', PengeluaranController::class);
-   
+
     Route::resource('goals', GoalController::class)->except(['show']);
     Route::put('/goals/{id}/toggle', [GoalController::class, 'toggleCompletion'])->name('goals.toggle');
-    
+
     Route::post('/kategori-pemasukan', [KategoriPemasukanController::class, 'store'])->name('kategori-pemasukan.store');
     Route::post('/kategori-pengeluaran', [KategoriPengeluaranController::class, 'store'])->name('kategori-pengeluaran.store');
+
+    // Rute untuk menampilkan profil
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+    // Rute untuk mengupdate profil
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/profile/change-password', [ProfileController::class, 'showChangePasswordForm'])->name('profile.showChangePassword');
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+
+
+
 
     Route::get('/pemasukan', [pemasukanController::class, 'index'])->name('pemasukan.index');
     Route::get('/pemasukan/create', [pemasukanController::class, 'create'])->name('pemasukan.create');

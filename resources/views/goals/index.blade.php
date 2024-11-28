@@ -3,79 +3,93 @@
 @section('title', 'Goals')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Goals Management</h1>
+<div class="container goals-container">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="goals-title">Goals</h1>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addGoalModal">
+        Tambahkan Goal
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        <path d="M12.854.146a.5.5 0 0 1 .707 0l2.293 2.293a.5.5 0 0 1 0 .707l-9.193 9.193a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l9.193-9.193zm-9.9 10.803L10.293 3.61 12.39 5.707l-7.44 7.44-2.12-.707.707-2.12z"/>
+        <path fill-rule="evenodd" d="M1 13.5V16h2.5l.5-.5H2v-1.5L1 13.5z"/>
+    </svg>
+</button>
+    </div>
 
-    <!-- Tombol Tambah Goals -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGoalModal">
-        Add Goal
-    </button>
-
-    <!-- Tabel Goals -->
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Goal</th>
-                <th>Completed</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($goals as $goal)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $goal->goals }}</td>
-                    <td>
-                        <input type="checkbox" class="form-check-input" {{ $goal->is_completed ? 'checked' : '' }}
-                            onchange="toggleGoal({{ $goal->id }}, this.checked)">
-                    </td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editGoalModal"
-                            data-id="{{ $goal->id }}" data-goal="{{ $goal->goals }}">
-                            Update
-                        </button>
-
-                        <form action="{{ route('goals.destroy', $goal->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                onclick="return confirm('Delete this goal?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center">No goals available.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+    <!-- Card Goals -->
+    <div class="card mt-2 goals-card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table goals-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Goals</th>
+                            <th>Complete</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($goals as $goal)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $goal->goals }}</td> <!-- Data goals berada di tengah -->
+                                <td class="text-center">
+                                    <input type="checkbox" class="form-check-input" {{ $goal->is_completed ? 'checked' : '' }}
+                                      onchange="toggleGoal({{ $goal->id }}, this.checked)">
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-dark btn-sm goals-btn" data-bs-toggle="modal"
+                                        data-bs-target="#editGoalModal" data-id="{{ $goal->id }}" data-goal="{{ $goal->goals }}">
+                                        Update
+                                    </button>
+                                    <form action="{{ route('goals.destroy', $goal->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-dark btn-sm goals-btn"
+                                            onclick="return confirm('Delete this goal?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">No goals available.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Modal: Add Goal -->
+<!-- Modal Add Goal -->
 <div class="modal fade" id="addGoalModal" tabindex="-1" aria-labelledby="addGoalModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ route('goals.store') }}">
+            <form action="{{ route('goals.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Goal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="addGoalModalLabel">Tambahkan Goal Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="goal" class="form-control" placeholder="Enter your goal" required>
+                    <div class="mb-3">
+                        <label for="goal" class="form-label">Goal</label>
+                        <input type="text" name="goal" id="goal" class="form-control" placeholder="Masukan Goal" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Add Goal</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal: Edit Goal -->
+
+<!-- Modal Edit Goal -->
 <div class="modal fade" id="editGoalModal" tabindex="-1" aria-labelledby="editGoalModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -99,7 +113,6 @@
 </div>
 
 <script>
-    // Handle Edit Modal
     const editGoalModal = document.getElementById('editGoalModal');
     editGoalModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -135,6 +148,5 @@
                 alert(error.message);
             });
     }
-
 </script>
 @endsection

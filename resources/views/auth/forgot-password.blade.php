@@ -20,7 +20,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Reset Password</button>
             <div class="mt-3">
-                <a href="/login">Back to Login</a>
+                <a href="/login">Kembali Ke Halaman Login</a>
             </div>
         </form>
     </div>

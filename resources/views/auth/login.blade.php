@@ -37,9 +37,9 @@
             <button type="submit" class="btn btn-primary w-100">Login</button>
 
             <!-- Link tambahan -->
-            <div class="mt-3">
-                <a href="/register">Don't have an account? Register</a><br>
-                <a href="/forgot-password" class="text-danger">Forgot Password? Click here to reset it</a>
+            <div class="mt-4">
+                <a href="/register">Tidak Punya Akun? Daftar</a><br>
+                <a href="/forgot-password" class="text-danger" >Lupa Password? Klik Disini</a>
             </div>
         </form>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Goal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pemasukan;
@@ -26,7 +27,7 @@ class DashboardController extends Controller
             $endDate = Carbon::now()->endOfWeek()->endOfDay();       // Akhir minggu (Minggu, pukul 23:59:59)
         } elseif ($filter === 'month') {
             $startDate = Carbon::now()->startOfMonth()->startOfDay(); // Awal bulan
-    $endDate = Carbon::now()->endOfMonth()->endOfDay();       // Akhir bulan
+            $endDate = Carbon::now()->endOfMonth()->endOfDay();       // Akhir bulan
         } elseif ($filter === 'all') {
             // Filter seluruh data
             $startDate = null; // Tidak membatasi tanggal awal
@@ -47,20 +48,22 @@ class DashboardController extends Controller
         }
         $totalPengeluaran = $pengeluaranQuery->sum('jumlah');
 
-    
-    // Ambil top 5 pengeluaran berdasarkan kategori untuk user yang sedang login
-    $topPengeluaran = Pengeluaran::where('pengeluaran.user_id', $userId)  // Filter berdasarkan user_id dengan alias tabel
-        ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-            // Filter berdasarkan rentang tanggal jika ada
-            return $query->whereBetween('pengeluaran.tanggal', [$startDate, $endDate]);
-        })
-        ->join('kategori_pengeluaran', 'pengeluaran.kategori_pengeluaran_id', '=', 'kategori_pengeluaran.id')  // Join dengan tabel kategori_pengeluaran
-        ->select('kategori_pengeluaran.nama', DB::raw('SUM(pengeluaran.jumlah) as total'))  // Ambil nama kategori dan total pengeluaran
-        ->groupBy('kategori_pengeluaran.id', 'kategori_pengeluaran.nama')  // Kelompokkan berdasarkan kategori
-        ->orderByDesc('total')  // Urutkan berdasarkan total pengeluaran tertinggi
-        ->limit(5)  // Batasi hasil hanya 5
-        ->get();
 
+        // Ambil top 5 pengeluaran berdasarkan kategori untuk user yang sedang login
+        $topPengeluaran = Pengeluaran::where('pengeluaran.user_id', $userId)  // Filter berdasarkan user_id dengan alias tabel
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                // Filter berdasarkan rentang tanggal jika ada
+                return $query->whereBetween('pengeluaran.tanggal', [$startDate, $endDate]);
+            })
+            ->join('kategori_pengeluaran', 'pengeluaran.kategori_pengeluaran_id', '=', 'kategori_pengeluaran.id')  // Join dengan tabel kategori_pengeluaran
+            ->select('kategori_pengeluaran.nama', DB::raw('SUM(pengeluaran.jumlah) as total'))  // Ambil nama kategori dan total pengeluaran
+            ->groupBy('kategori_pengeluaran.id', 'kategori_pengeluaran.nama')  // Kelompokkan berdasarkan kategori
+            ->orderByDesc('total')  // Urutkan berdasarkan total pengeluaran tertinggi
+            ->limit(5)  // Batasi hasil hanya 5
+            ->get();
+
+        // Ambil satu data goals untuk user yang sedang login
+        $goal = Goal::where('user_id', $userId)->first(); // Mengambil hanya satu data goal
 
         // Pastikan data tidak null
         $totalPemasukan = $totalPemasukan ?: 0;
@@ -71,7 +74,8 @@ class DashboardController extends Controller
             'totalPemasukan',
             'totalPengeluaran',
             'topPengeluaran',
-            'filter'
+            'filter',
+            'goal' // Mengirim data goal ke view
         ));
     }
 }

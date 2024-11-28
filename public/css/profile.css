@@ -1,0 +1,112 @@
+/* Container untuk halaman Profile */
+.profile-container {
+    margin-top: 20px;
+}
+
+/* Card Styling */
+.profile-card {
+    border-radius: 0px; /* Tidak rounded */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Border tipis */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 5px 12px 15px rgba(0, 0, 0, 0.25); /* Shadow lebih fokus ke kanan dan bawah */
+}
+
+/* Tombol Account dan Security */
+.profile-buttons .profile-tab {
+    font-size: 14px;
+    padding: 8px 15px;
+    border: 1px solid #20c997; /* Warna hijau */
+    color: #20c997;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow tombol */
+}
+
+/* Hover Effect */
+.profile-buttons .profile-tab:hover {
+    background-color: rgba(32, 201, 151, 0.1); /* Hijau muda transparan */
+    color: #20c997;
+    text-decoration: none;
+}
+
+/* Active State */
+.profile-buttons .profile-tab.active {
+    background-color: #20c997; /* Warna hijau penuh */
+    color: white;
+    border-color: #20c997; /* Border hijau */
+    box-shadow: none; /* Hilangkan shadow */
+}
+
+/* Transition */
+.profile-buttons .profile-tab:hover, .profile-buttons .profile-tab.active {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Atur lebar input */
+.profile-input {
+    max-width: 800px; /* Lebar maksimal */
+    width: 100%; /* Lebar penuh sesuai parent */
+    margin-bottom: 15px; /* Jarak antar input */
+}
+
+/* Form Styling */
+.profile-form {
+    width: 100%;
+}
+
+.profile-form-group {
+    margin-bottom: 15px;
+}
+
+/* Atur style untuk input dengan garis tebal */
+.profile-input {
+    border-width: 2px; /* Tebalkan garis */
+    border-color: black; /* Warna hijau */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Tambahkan padding */
+    font-size: 16px; /* Ukuran font */
+    box-shadow: none; /* Hilangkan shadow default */
+    outline: none; /* Hilangkan outline */
+    transition: border-color 0.3s ease; /* Efek transisi pada hover/fokus */
+}
+
+/* Efek saat fokus pada input */
+.profile-input:focus {
+    border-color: black; /* Warna lebih gelap saat fokus */
+    outline: none; /* Hilangkan outline */
+    box-shadow: 0 0 5px rgba(32, 201, 151, 0.5); /* Tambahkan efek shadow */
+}
+
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Buat bulat */
+    object-fit: cover;
+}
+
+.profile-submit {
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+.profile-container {
+    margin-top: 20px;
+}
+
+/* Card Styling */
+.profile-card-pw {
+    border-radius: 0px; /* Tidak rounded */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Border tipis */
+    padding: 30px 30px 90px 30px;
+    background-color: #fff;
+    box-shadow: 5px 12px 15px rgba(0, 0, 0, 0.25); /* Shadow lebih fokus ke kanan dan bawah */
+}
+
+.profile-submit-pw {
+    font-size: 14px;
+    padding: 10px 20px;
+    margin-top: 30px;
+}

@@ -24,7 +24,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Register</button>
             <div class="mt-3">
-                <a href="/login">Already have an account? Login</a>
+                <a href="/login">Sudah Punya Akun? Login Sekarang</a>
             </div>
         </form>
     </div>

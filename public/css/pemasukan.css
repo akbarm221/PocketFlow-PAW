@@ -1,0 +1,17 @@
+.nav-pills .nav-link {
+    color: #333; /* Warna teks default */
+    border-radius: 15px; /* Membuat tombol bulat */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #299D91; /* Hijau untuk tombol aktif */
+    color: #fff; /* Warna teks putih */
+}
+
+.nav-pills .nav-link:hover {
+    background-color: rgba(32, 201, 151, 0.2); /* Hijau transparan untuk hover */
+    color: #20c997; /* Warna teks hijau */
+}
+
+
